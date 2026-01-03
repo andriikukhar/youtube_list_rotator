@@ -1,3 +1,4 @@
+import sys
 import time
 import logging
 import os
@@ -139,6 +140,9 @@ def move_watched_to_end(youtube, playlist_id):
         print('Переносимо? y/n')
         answer = input()
 
+    if answer == 'n':
+        sys.exit()
+
     if answer == 'y':
         print("\n--- Крок 3: Переміщення в кінець ---")
         moved_count = 0
@@ -183,5 +187,4 @@ if __name__ == "__main__":
             time.sleep(300) # Якщо помилка, чекаємо менше
             continue 
 
-        time.sleep(3600) # Пауза 1 година (3600 секунд)
 
