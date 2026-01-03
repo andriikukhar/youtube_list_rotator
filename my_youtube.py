@@ -186,5 +186,5 @@ if __name__ == "__main__":
             logging.info("Спробуємо ще раз через 5 хвилин...")
             time.sleep(300) # Якщо помилка, чекаємо менше
             continue 
-
-
+    
+    print("ВАШ REFRESH TOKEN:", credentials.refresh_token)
