@@ -8,6 +8,7 @@ import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 
 # --- КОНФІГУРАЦІЯ ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
@@ -30,7 +31,15 @@ def get_authenticated_service():
             credentials = flow.run_local_server(port=0)
         with open("token.pickle", "wb") as token:
             pickle.dump(credentials, token)
+    
+    if credentials:
+        print("\n" + "="*50)
+        print("ВАШ REFRESH TOKEN (скопіюйте його повністю):")
+        print(credentials.refresh_token)
+        print("="*50 + "\n")
+
     return googleapiclient.discovery.build("youtube", "v3", credentials=credentials)
+
 
 def get_recent_watched_videos(youtube):
     """Отримує ID відео безпосередньо з системного плейліста історії (HL)."""
@@ -186,5 +195,4 @@ if __name__ == "__main__":
             logging.info("Спробуємо ще раз через 5 хвилин...")
             time.sleep(300) # Якщо помилка, чекаємо менше
             continue 
-    
-    print("ВАШ REFRESH TOKEN:", credentials.refresh_token)
+
